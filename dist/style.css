@@ -246,6 +246,31 @@ h2 {
     display: flex;
 }
 
+.auctionbidsdisplay{
+    padding: 10px;
+    list-style: none;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    justify-content: center;
+}
+.auctionbidschart{
+    width: 240px;
+    margin: 0 auto;
+}
+
+.aucdivrow{
+    display: flex;
+}
+.auctionitemdiv{
+    width: 20px;
+    height: 20px;
+    background-color: #808080;
+    margin: 2px;
+}
+
 .auctioncurrentbid{
     padding: 10px;
     list-style: none;
@@ -365,6 +390,8 @@ h2 {
     color:black;
     background-color: rgb(212, 212, 212);
 }
+
+
 
 .viewprofileleft {
     width: 500px;
