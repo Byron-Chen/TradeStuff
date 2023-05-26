@@ -1,6 +1,7 @@
-auctiondatalist = [[5, 23, "Jimmy L."], [3, 23, "John S."], [10, 23, "Adam T."]]
+auctiondatalist = []
 colours = ["#e6261f","#eb7532","#f7d038","#a3e048","#49da9a","#34bbe6","#4355db","#d23be7"]
 auctionitemamountcount = 0
+highestbid = 0
 
 lastpoint = 0
 
@@ -20,17 +21,24 @@ function init(){
     var inputprice = document.getElementById("inputprice")
     var button = document.getElementById("auctionbidbutton")
     button.addEventListener("click",function(){
-        if (inputamount.value != "" && inputprice.value != "" && checkbid(inputamount.value, inputprice.value )){
-            auctiondatalist.push([parseInt(inputamount.value), parseInt(inputprice.value), "Someone"])
+        if (inputamount.value != "" && inputprice.value != "" ){
+            if (parseInt(inputprice.value) > highestbid){
+                auctiondatalist = [[parseInt(inputamount.value), parseInt(inputprice.value), "Someone"]]
+                highestbid = parseInt(inputprice.value)
+            }
+            else if (checkbid(inputamount.value, inputprice.value )){
+                auctiondatalist.push([parseInt(inputamount.value), parseInt(inputprice.value), "Someone"])
+            }
+            initauction(auctionitemamountcount)
             inputamount.value = ""
             inputprice.value = ""
-            initauction(auctionitemamountcount)
-            
         }
+
+        
         
     })
 
-    initauction(34)
+    initauction(50)
 }
 
 function checkbid(amount, price){
