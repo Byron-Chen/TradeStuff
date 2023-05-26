@@ -268,7 +268,8 @@ h2 {
     width: 20px;
     height: 20px;
     background-color: #808080;
-    margin: 2px;
+    border: 2px solid white;
+    margin: 0px;
 }
 
 .auctioncurrentbid{

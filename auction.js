@@ -20,10 +20,12 @@ function init(){
     var inputprice = document.getElementById("inputprice")
     var button = document.getElementById("auctionbidbutton")
     button.addEventListener("click",function(){
-        if (inputamount.value != "" && inputprice.value != ""){
-            
+        if (inputamount.value != "" && inputprice.value != "" && checkbid(inputamount.value, inputprice.value )){
+            auctiondatalist.push([parseInt(inputamount.value), parseInt(inputprice.value), "Someone"])
             inputamount.value = ""
             inputprice.value = ""
+            initauction(auctionitemamountcount)
+            
         }
         
     })
@@ -31,13 +33,34 @@ function init(){
     initauction(34)
 }
 
+function checkbid(amount, price){
+    count = 0
+    highestbid = 0
+    for (let i =0; i < auctiondatalist.length; i ++){
+        count += auctiondatalist[i][0]
+        if (highestbid < auctiondatalist[i][1] ){
+            highestbid = auctiondatalist[i][1] 
+        }
+    }
+    if ((count + parseInt(amount)) > auctionitemamountcount){
+        console.log(count, amount, auctionitemamountcount)
+        console.log(auctiondatalist)
+        alert("Invalid Bid - Incorrect Stock Amount")
+        return false
+    }
+    if (price < highestbid){
+        alert("Invalid Bid - Bid too low")
+        return false
+    }
+    return true
+}
+
 function initauction(auctionitemamount){
     //reset
     document.getElementById("auctionbidschart").innerHTML ="";
+    document.getElementById("auctionbidlist").innerHTML=""
     lastpoint = 0
     auctionitemamountcount = auctionitemamount
-
-    console.log(document.getElementById("auctionbidschart").innerHTML)
     rowamount = Math.ceil(auctionitemamount/10)
     countitemamount = auctionitemamount
     for (let i = 0; i < rowamount; i++){
@@ -66,6 +89,7 @@ function initauction(auctionitemamount){
         countitemamount -= 10
     }
     changecolours()
+    displaybids()
 }
 
 function pad(n) {
@@ -123,8 +147,12 @@ function displaybids(){
         //insertelement.innerHTML = '<div class="auctionbiddetails"><p style="float: left;">'+inputamount.value + ' x $' +  inputprice.value +'</p><p style="margin: 0 auto;"><b>You</b></p><p style="float: right;">'+ getrealdate() +'</p></div>'
         insertelement.innerHTML = '<div class="auctionbiddetails"><p style="float: left;">'+auctiondatalist[i][0] + ' x $' +  auctiondatalist[i][1] +'</p><p style="margin: 0 auto;">' + auctiondatalist[i][2] + '</p></div>'
         parentelement.insertBefore(insertelement, parentelement.firstChild)
-        console.log(inputamount.value, inputprice.value)
     }
+}
+
+function reset(amount){
+    auctiondatalist = []
+    initauction(amount)
 }
 
 
